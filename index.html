@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Email Siswa</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Database Email Siswa</h1>
+    </header>
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nama</th>
+                    <th>Email</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Najeb</td>
+                    <td>Najeb@gmail.com</td>
+                    <td>
+                        <button class="editBtn">Edit</button>
+                        <button class="hapusBtn">Hapus</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>edi</td>
+                    <td>edi@gmail.com</td>
+                    <td>
+                        <button class="editBtn">Edit</button>
+                        <button class="hapusBtn">Hapus</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button id="tambahBtn">Tambah Data</button>
+    </main>
+    <script>
+        // JavaScript Anda tetap sama seperti sebelumnya
+        var nextID = 3; // Inisialisasi ID berikutnya
+        
+        // Fungsi untuk menambahkan data
+        function tambahData() {
+            var table = document.querySelector("table tbody");
+            var newRow = table.insertRow();
+            var idCell = newRow.insertCell(0);
+            var namaCell = newRow.insertCell(1);
+            var emailCell = newRow.insertCell(2);
+            var aksiCell = newRow.insertCell(3);
+    
+            idCell.textContent = nextID++; // Menggunakan ID berikutnya dan kemudian meningkatkannya
+            namaCell.textContent = "Isi Nama Kalian"; // Ganti dengan nama yang sesuai
+            emailCell.textContent = "Isi Email Kalian"; // Ganti dengan email yang sesuai
+            aksiCell.innerHTML = '<button class="editBtn">Edit</button> <button class="hapusBtn">Hapus</button>';
+    
+            // Mengaitkan event listener dengan tombol-tombol Edit dan Hapus di baris baru
+            var editButton = newRow.querySelector(".editBtn");
+            var hapusButton = newRow.querySelector(".hapusBtn");
+    
+            editButton.addEventListener("click", function() {
+                editData(newRow);
+            });
+    
+            hapusButton.addEventListener("click", function() {
+                hapusData(newRow);
+            });
+        }
+    
+        // Fungsi untuk mengedit data
+        function editData(row) {
+            var namaCell = row.cells[1];
+            var emailCell = row.cells[2];
+    
+            var newNama = prompt("Masukkan nama baru:", namaCell.textContent);
+            var newEmail = prompt("Masukkan email baru:", emailCell.textContent);
+    
+            if (newNama !== null && newEmail !== null) {
+                namaCell.textContent = newNama;
+                emailCell.textContent = newEmail;
+            }
+        }
+    
+        // Fungsi untuk menghapus data
+        function hapusData(row) {
+            var table = document.querySelector("table");
+            table.deleteRow(row.rowIndex);
+        }
+    
+        // Mengaitkan fungsi dengan tombol-tombol
+        document.getElementById("tambahBtn").addEventListener("click", tambahData);
+    
+        // Mengaitkan fungsi editData dengan semua tombol Edit
+        var editButtons = document.querySelectorAll(".editBtn");
+        editButtons.forEach(function(editButton) {
+            editButton.addEventListener("click", function() {
+                var row = editButton.parentElement.parentElement;
+                editData(row);
+            });
+        });
+    </script>
+</body>
+</html>
